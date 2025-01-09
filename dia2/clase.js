@@ -5,6 +5,9 @@
 // Creación de un array
 console.log("=== ARRAYS ===");
 let arrayEjemplo = [1, 2, 3, 4, 5]; // Creamos un array con valores iniciales
+let mimMatriz = [0,1][1,0];
+let arrayVacio = [];
+let otroArray = Array();
 console.log("Array inicial:", arrayEjemplo);
 
 // Agregar elementos al array
@@ -13,7 +16,7 @@ arrayEjemplo.unshift(0); // Agregamos un elemento al inicio
 console.log("Array después de agregar elementos:", arrayEjemplo);
 
 // Modificar elementos
-arrayEjemplo[2] = 10; // Modificamos el tercer elemento (índice 2)
+arrayEjemplo[2] = 9; // Modificamos el tercer elemento (índice 2)
 console.log("Array después de modificar un elemento:", arrayEjemplo);
 
 // Eliminar elementos
@@ -22,10 +25,49 @@ arrayEjemplo.shift(); // Elimina el primer elemento
 console.log("Array después de eliminar elementos:", arrayEjemplo);
 
 // Recorrer un array
-console.log("Recorriendo el array:");
-arrayEjemplo.forEach((valor, indice) => {
-    console.log(`Índice ${indice}: ${valor}`);
-});
+for(let i = 0; i < arrayEjemplo.length; i++)
+{
+    console.log(arrayEjemplo[i]);
+}
+
+for (let valor of arrayEjemplo)
+{
+    console.log(valor);
+}
+
+// Referenciar Arrays
+
+// Al crear una variable con el valor de otra, lo que tenemos son dos variables independientes
+let x=1;
+let y=x;
+x = 5;
+console.log(x, y);
+
+
+// No sucede lo mismo con los arrays, lo que creamos es OTRA REFERENCIA al mismo array
+let array1 = [1,2,3];
+let array2 = array1;    // REFERENCIA, NO UNA COPIA
+array1[0] = 0;
+console.log(array2);    // el array 2 no ha sido modificado, pero se muestra modificado. Eso es porque array2
+                        // no es otro array, sino una referencia a array1
+
+
+// Unir y copiar arrays
+let arrayConcatenado = arrayEjemplo.concat(array1);
+console.log(arrayConcatenado);
+
+let arrayCopiado = arrayEjemplo.slice();
+
+let arrayMedioCopiado = arrayEjemplo.slice(0,2);
+
+// Saber si hay un valor en el array
+let condicion = 9;
+console.log(arrayEjemplo.includes(condicion));
+
+// Ordenar arrays
+let arrayOrdenado = arrayEjemplo.sort();
+let arrayReverso = arrayEjemplo.reverse();
+console.log(arrayOrdenado);     // OJO, el método sort() ordena alfabéticamente, no numéricamente.
 
 // Convertir el array a un Set
 let setDesdeArray = new Set(arrayEjemplo);
@@ -33,9 +75,9 @@ console.log("Set creado desde el array:", setDesdeArray);
 
 console.log("\n");
 
-// ==============================
-// 2. TRABAJANDO CON SETS
-// ==============================
+// // ==============================
+// // 2. TRABAJANDO CON SETS
+// // ==============================
 
 console.log("=== SETS ===");
 // Creación de un Set
@@ -51,60 +93,77 @@ console.log("Set después de agregar elementos:", setEjemplo);
 setEjemplo.delete(4); // Eliminamos un elemento
 console.log("Set después de eliminar un elemento:", setEjemplo);
 
-// Comprobar si un elemento existe en el Set
+// // Comprobar si un elemento existe en el Set
 console.log("¿El Set contiene el número 2?", setEjemplo.has(2));
 console.log("¿El Set contiene el número 4?", setEjemplo.has(4));
 
 // Recorrer un Set
-console.log("Recorriendo el Set:");
-setEjemplo.forEach((valor) => {
-    console.log(`Valor: ${valor}`);
-});
 
-// Convertir el Set a un Array
+for (const elemento of setEjemplo) {
+    console.log(elemento);
+}
+
+// Tamaño del conjunto
+console.log("Tamaño del conjunto:", setEjemplo.size);
+
+// Convertir el Set a un Array  -  ORDEN SPREAD (...)
 let arrayDesdeSet = [...setEjemplo];
 console.log("Array creado desde el Set:", arrayDesdeSet);
 
+let conjunto = new Set([...array1, ...arrayEjemplo, ...arrayDesdeSet]);
+
+console.log(conjunto);
+
 console.log("\n");
 
-// ==============================
-// 3. TRABAJANDO CON MAPS
-// ==============================
+// // ==============================
+// // 3. TRABAJANDO CON MAPS
+// // ==============================
 
 console.log("=== MAPS ===");
 // Creación de un Map
 let mapEjemplo = new Map([
-    ["nombre", "Juan"],
-    ["edad", 30],
-    ["pais", "España"]
+    ["Bruno", 10],
+    ["Jorge", 10],
+    ["German", 10]
 ]); // Creamos un Map con pares clave-valor
 console.log("Map inicial:", mapEjemplo);
 
 // Agregar elementos al Map
-mapEjemplo.set("profesion", "Desarrollador"); // Agregamos una nueva clave-valor
+mapEjemplo.set("David", 10); // Agregamos una nueva clave-valor
 console.log("Map después de agregar un elemento:", mapEjemplo);
 
 // Modificar elementos en el Map
-mapEjemplo.set("edad", 31); // Actualizamos el valor de una clave existente
+mapEjemplo.set("Jorge", 4); // Actualizamos el valor de una clave existente
 console.log("Map después de modificar un elemento:", mapEjemplo);
 
 // Eliminar elementos del Map
-mapEjemplo.delete("pais"); // Eliminamos una clave-valor
+mapEjemplo.delete("German"); // Eliminamos una clave-valor
 console.log("Map después de eliminar un elemento:", mapEjemplo);
 
 // Comprobar si una clave existe en el Map
-console.log("¿El Map contiene la clave 'nombre'?", mapEjemplo.has("nombre"));
-console.log("¿El Map contiene la clave 'pais'?", mapEjemplo.has("pais"));
+console.log("¿El Map contiene la clave 'Bruno'?", mapEjemplo.has("Bruno"));
+console.log("¿El Map contiene la clave 'German'?", mapEjemplo.has("German"));
 
-// Recorrer un Map
+// // Recorrer un Map
 console.log("Recorriendo el Map:");
-mapEjemplo.forEach((valor, clave) => {
-    console.log(`Clave: ${clave}, Valor: ${valor}`);
-});
 
-// Convertir un Map a un Array
-let arrayDesdeMap = Array.from(mapEjemplo);
-console.log("Array creado desde el Map:", arrayDesdeMap);
+// Recorrer el mapa obteniendo cada uno de los pares en la variable 'par'
+for (const par of mapEjemplo) 
+{
+    console.log(par);
+}
+
+// Recorrer el mapa obteniendo las claves del mapa en la variable 'clave'
+for (let clave of mapEjemplo.keys())
+{
+    console.log(mapEjemplo.get(clave));
+}
+
+
+// // Convertir un Map a un Array
+// let arrayDesdeMap = Array.from(mapEjemplo);
+// console.log("Array creado desde el Map:", arrayDesdeMap);
 
 console.log("\n");
 
@@ -114,15 +173,15 @@ console.log("\n");
 
 console.log("=== CONVERSIONES ===");
 // Array a Set
-const nuevoSet = new Set([1, 2, 3, 4, 4, 5]); // Duplicados serán eliminados
+let nuevoSet = new Set([1, 2, 3, 4, 4, 5]); // Duplicados serán eliminados
 console.log("Set desde un Array con duplicados:", nuevoSet);
 
 // Set a Array
-const nuevoArray = Array.from(nuevoSet);
+let nuevoArray = Array.from(nuevoSet);
 console.log("Array desde un Set:", nuevoArray);
 
 // Array a Map
-const nuevoMap = new Map([
+let nuevoMap = new Map([
     [1, "uno"],
     [2, "dos"],
     [3, "tres"]
@@ -130,7 +189,7 @@ const nuevoMap = new Map([
 console.log("Map creado desde un array de pares clave-valor:", nuevoMap);
 
 // Map a Array
-const arrayDesdeNuevoMap = Array.from(nuevoMap);
+let arrayDesdeNuevoMap = Array.from(nuevoMap);
 console.log("Array desde un Map:", arrayDesdeNuevoMap);
 
 console.log("\n=== FIN ===");
