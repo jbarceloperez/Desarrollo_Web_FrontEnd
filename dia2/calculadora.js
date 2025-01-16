@@ -1,8 +1,9 @@
 
 function calculadora() {
     // Pedimos al usuario el primer número
-    let numero1 = prompt("Introduce el primer número:");
-    if (typeof(numero1) != "Number") {
+    let numero1 = Number(prompt("Introduce el primer número:"));
+    console.log(typeof(numero1));
+    if (typeof(numero1) != "number") {
         alert("El valor introducido no es un número válido.");
         return;
     }
@@ -17,8 +18,8 @@ function calculadora() {
     }
 
     // Pedimos al usuario el segundo número
-    let numero2 = prompt("Introduce el segundo número:");
-    if (typeof(numero1) != "Number") {
+    let numero2 = Number(prompt("Introduce el segundo número:"));
+    if (typeof(numero1) != "number") {
         alert("El valor introducido no es un número válido.");
         return;
     }

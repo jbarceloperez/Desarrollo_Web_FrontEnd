@@ -178,6 +178,7 @@ console.log("Set desde un Array con duplicados:", nuevoSet);
 
 // Set a Array
 let nuevoArray = Array.from(nuevoSet);
+// También se pueden crear arrays como un nuevo objeto array y el metodo from, pero recomendamos usar el operador '...' para las conversiones
 console.log("Array desde un Set:", nuevoArray);
 
 // Array a Map
@@ -189,7 +190,5 @@ let nuevoMap = new Map([
 console.log("Map creado desde un array de pares clave-valor:", nuevoMap);
 
 // Map a Array
-let arrayDesdeNuevoMap = Array.from(nuevoMap);
+let arrayDesdeNuevoMap = [...nuevoMap];
 console.log("Array desde un Map:", arrayDesdeNuevoMap);
-
-console.log("\n=== FIN ===");
