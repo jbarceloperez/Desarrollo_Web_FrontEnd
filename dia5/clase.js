@@ -1,3 +1,5 @@
+import { writeFile, readFile } from "fs";
+
 // Creación de objetos a partir de constructores
 
 // function Persona(nombre, apellido) {
@@ -143,6 +145,31 @@ console.log(concesJSON);
 const nuevoConcesionario = new Concesionario("Nuevo Concesionario");
 nuevoConcesionario.cargarDesdeJSON(concesJSON);
 console.log(nuevoConcesionario);
+
+
+// Guardar en un fichero JSON
+writeFile("./clase.json", concesJSON, (error) => {
+    if (error) {
+        console.error("Error al guardar el archivo JSON:", error);
+    } else {
+        console.log("Archivo JSON guardado correctamente.");
+    }
+});
+
+
+readFile('./clase.json', 'utf8', (err, data) => {
+    if (err) {
+        console.error('Error al leer el archivo:', err);
+        return;
+    }
+
+    // Convertir el contenido JSON en un objeto de JavaScript
+    const datos = JSON.parse(data);
+
+    // Usar los datos importados
+    console.log(datos);     
+    console.log(datos.modelo);    
+});
 
 
 
