@@ -1,35 +1,44 @@
 // **Explicación de Expresiones Regulares en JavaScript**
 // Las expresiones regulares son patrones que se utilizan para buscar coincidencias en cadenas de texto.
 
+// ^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$ ciudad
+// ^[0-9]{5}$ código postal
+// ^[0-9]{8}[A-Za-z]$ DNI
+// ^\(\+\d{2,3}\)\d{9,12}$ telefono
+// ^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$ email
+// ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#_\\$&\\^])[A-Za-z\\d!@#_\\$&\\^]{12,}$
+
 // Crear una expresión regular
 // Para crear una expresión regular en JavaScript, se puede utilizar el constructor `RegExp` o la notación literal `/patrón/`.
-let regex = new RegExp("Hola"); // Constructor RegExp
-let regexLiteral = /Hola/; // Notación literal
+let regex = new RegExp("hola"); // Constructor RegExp
+let regex2 = /hola/;            // Notación literal
+console.log(regex);
 
-// Para buscar coincidencias en una cadena de texto, se pueden utilizar los métodos `test()` y `exec()`.
-let txt = "Hola mundo";
-let res = regex.test(txt); // Devuelve true si encuentra una coincidencia
-console.log(res); // true
+// Métodos de las expresiones regulares
+// - test: Devuelve true si la cadena cumple el patrón
+let txt = "HOLA mundo"; 
+console.log(regex.test(txt)); // false
 
-
-// **1. Modificador `i`: Búsqueda sin diferenciar entre mayúsculas y minúsculas**
+// **1. Modificador i -  Búsqueda sin diferenciar entre mayúsculas y minúsculas**
 console.log("=== Modificador i ===");
-let regexI = /hola/i; // Coincidirá con "hola", "Hola", "HOLA", etc.
-console.log(regexI.test("Hola")); // true
-console.log(regexI.test("hOLa")); // true
-console.log(regexI.test("Adiós")); // false
+let regexI = /hola/i;   // Coincidirá con "hola", "Hola", "HOLA", etc.
+console.log(regexI.test("hola mundo"));
+console.log(regexI.test("hOLa mundo"));
 
 // **2. Modificador `^`: Coincidir al inicio de la cadena**
 console.log("\n=== Modificador ^ ===");
-let regexStart = /^hola/; // Coincide si "hola" está al inicio de la cadena
+const regexStart = /^hola/; // Coincide si "hola" está al inicio
 console.log(regexStart.test("hola mundo")); // true
 console.log(regexStart.test("mundo hola")); // false
 
 // **3. Modificador `$`: Coincidir al final de la cadena**
 console.log("\n=== Modificador $ ===");
-let regexEnd = /mundo$/; // Coincide si "mundo" está al final de la cadena
+let regexEnd = /mundo$/; // Coincide si "mundo" está al final de la cadenaconst regexEnd = /mundo$/; // Coincide si "mundo" está al final
 console.log(regexEnd.test("hola mundo")); // true
 console.log(regexEnd.test("mundo hola")); // false
+
+const regexCombo =/^hola mundo$/; // Coincide si "hola mundo" está al inicio y al final
+console.log(regexCombo.test("hola mundo")); // true
 
 // **4. Modificador `.`: Coincide con cualquier carácter (excepto nueva línea)**
 console.log("\n=== Modificador . ===");
@@ -40,21 +49,24 @@ console.log(regexDot.test("haol")); // false
 
 // **5. Modificador `[]`: Coincidir con cualquier carácter dentro del conjunto**
 console.log("\n=== Modificador [] ===");
-let regexSet = /h[aeiou]la/; // Coincide con "hala", "hela", "hila", etc.
-console.log(regexSet.test("hola")); // true
-console.log(regexSet.test("hula")); // true
+let regexSet = /h[a-e]la/; // Coincide con "hala", "hbla", "hcla", "hdla", "hela"
 console.log(regexSet.test("hala")); // true
+console.log(regexSet.test("hela")); // true
+console.log(regexSet.test("hbla")); // true
 console.log(regexSet.test("hpla")); // false
 
 // **6. Modificador `[^expresion]`: Coincidir con cualquier carácter que NO esté en el conjunto**
 console.log("\n=== Modificador [^expresion] ===");
-let regexNegatedSet = /h[^aeiou]la/; // Coincide con "hla", "hpla", etc. (no hay vocal después de "h")
-console.log(regexNegatedSet.test("hola")); // false
-console.log(regexNegatedSet.test("hpla")); // true
+const regexNotSet = /h[^aeiou]la/;
+console.log(regexNotSet.test("hola")); // false
+console.log(regexNotSet.test("hpla")); // true
+console.log(regexNotSet.test("h@la")); // true
+
+let regexVocalConsonante = /^[aeiou][^aeiou]$/;
+console.log(regexVocalConsonante.test("ap")); // true
 
 // **7. Modificadores de Cardinalidad: `*`, `+`, `?` y {}**
 console.log("\n=== Modificadores de cardinalidad ===");
-
 // `*`: Coincide 0 o más veces
 console.log("\n Modificador * ");
 let regexAsterisk = /ho*/; // Coincide con "h", "ho", "hoo", etc.
@@ -77,27 +89,36 @@ console.log(regexQuestion.test("hooo")); // true (solo se toma la primera coinci
 
 // `{}`: Coincide un número determinado de veces
 console.log("\n Modificador {} ");
-let regexExacto = /a{2}/;   // Coincide con exactamente 2 apariciones de a
+let regexExacto = /a{2}/; // Coincide con exactamente 2 apariciones de a
 let regexAlMenos = /a{2,}/; // Coincide con al menos 2 apariciones de a
-let regexEntre = /a{2,4}/;  // Coincide con al menos 2 y máximo 4 apariciones de a
+let regexEntre = /a{2,4}/; // Coincide con al menos 2 y máximo 4 apariciones de a
 
-console.log(regexExacto.test("Hola"));      // false
-console.log(regexExacto.test("Holaaaaa"));  // true
-console.log(regexAlMenos.test("Hola"));     // false
-console.log(regexEntre.test("Holaa"));     // true
+console.log(regexExacto.test("Hola")); // false
+console.log(regexExacto.test("Holaaaaa")); // true
+console.log(regexAlMenos.test("Holaaaaaaaaa")); // false
+console.log(regexEntre.test("Holaaaaaa")); // true
 
 // **8. Paréntesis `()`: Agrupar partes de una expresión**
 console.log("\n=== Modificador () ===");
-let regexGroup = /(hola)+ mundo/; // Coincide con una o más repeticiones de "hola" seguidas de " mundo"
+const regexGroup = /(hola)+ mundo/; // "hola" debe repetirse 1 o más veces seguido de " mundo"
 console.log(regexGroup.test("hola mundo")); // true
 console.log(regexGroup.test("holaholahola mundo")); // true
+console.log(regexGroup.test("hola hola mundo hola mundo hola")); //true
+console.log(regexGroup.test("mundo")); // false
 
 // **9. Operador OR `|`: Coincidir con una u otra opción**
 console.log("\n=== Operador | ===");
-let regexOr = /gato|perro/; // Coincide con "gato" o "perro"
-console.log(regexOr.test("Me gusta el gato")); // true
-console.log(regexOr.test("Me gusta el perro")); // true
-console.log(regexOr.test("Me gusta el pez")); // false
+const regexOr = /hola|adios/; // Coincide con "hola" o "adios"
+console.log(regexOr.test("hola")); // true
+console.log(regexOr.test("adios")); // true
+console.log(regexOr.test("hasta luego")); // false
+
+// Existen otras maneras predefinidas de expresar conjuntos de caracteres
+let regexEscape = /10\$/;
+let regexNumeros = /\d/;    // Equivalente a /[0-9]/
+let regexAlfanumericos = /\w/; // Equivalente a /[a-zA-Z0-9_]/
+console.log(regexEscape.test("10$")); // true
+console.log(regexNumeros.test("10$")); // true
 
 // **10. Método exec(): Buscar coincidencias**
 console.log("\n=== Método exec() ===");
@@ -114,4 +135,22 @@ if (resultado) {
 } else {
     console.log("No se encontró ninguna coincidencia.");
 }
+
+console.log("//////////////////////");
+
+console.log("EJERCICIOS DE CLASE");
+
+let regex_telefono = /^\(\+[0-9]{2,3}\)[\d]{9,10}$/;
+let regex_email = /^[\w#\*\+&'!%@\?{}\^"]([\.]?[\w#\*\+&'!%@\?{}\^"])*[^\.]@[\w\.-]+\.\w{2,3}$/;
+
+let telefono1 = "(+34)623456789";
+let telefono2 = "(+432)612345879";
+
+let email1 = "javier.barcelo@murciaeduca.es";
+let email2 = "javier.bar.celo@murciaeduca.com";
+
+console.log(regex_telefono.test(telefono1));
+console.log(regex_telefono.test(telefono2));
+console.log(regex_email.test(email1));
+console.log(regex_email.test(email2));
 
