@@ -1,12 +1,13 @@
 // **Explicación de Expresiones Regulares en JavaScript**
 // Las expresiones regulares son patrones que se utilizan para buscar coincidencias en cadenas de texto.
 
-// ^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$ ciudad
+// ya teniais las soluciones, vaya tela
+// ^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$ ciudad
 // ^[0-9]{5}$ código postal
 // ^[0-9]{8}[A-Za-z]$ DNI
 // ^\(\+\d{2,3}\)\d{9,12}$ telefono
-// ^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$ email
-// ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#_\\$&\\^])[A-Za-z\\d!@#_\\$&\\^]{12,}$
+// ^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$ email
+// ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#_\$&\^])[A-Za-z\\d!@#_\$&\^]{12,}$
 
 // Crear una expresión regular
 // Para crear una expresión regular en JavaScript, se puede utilizar el constructor `RegExp` o la notación literal `/patrón/`.

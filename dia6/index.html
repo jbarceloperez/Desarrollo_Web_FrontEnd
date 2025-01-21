@@ -3,12 +3,12 @@
     <title>Ejemplo de validación de un formulario usando expresiones regulares</title>
     <script>
     function validaCampos(formulario) {
-        let regex_dni = /^\d{8}[a-zA-Z]$/;  // 8 dígitos seguidos de una letra
-        let regex_telefono = /./;
-        let regex_email = /./;
-        let regex_ciudad = /./;
-        let regex_codigo_postal = /./;
-        let regex_password = /./;
+        let regex_dni = /^\d{8}[a-zA-Z]$/;    
+        let regex_telefono = /^\(\+[0-9]{2,3}\)[\d]{9,10}$/;
+        let regex_email = /^[\w#\*\+&'!%@\?{}\^"]([\.]?[\w#\*\+&'!%@\?{}\^"])*[^\.]@[\w\.-]+\.\w{2,3}$/;
+        let regex_ciudad = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/;
+        let regex_codigo_postal = /^\d{5}$/;
+        let regex_password = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#_,\.\$&\^])[\w!@#_,\.\$&\^]{12,}$/;
 
 
         // Usaremos el método "test" de las expresiones regulares:
@@ -16,7 +16,27 @@
             alert('Campo DNI no válido.');
             return false; // sale de la función y NO envía el formulario
         }
-        
+        if(regex_telefono.test(formulario.telefono.value)==false) {
+            alert('Campo tfno no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_email.test(formulario.email.value)==false) {
+            alert('Campo email no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_ciudad.test(formulario.ciudad.value)==false) {
+            alert('Campo ciudad no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_codigo_postal.test(formulario.codigo_postal.value)==false) {
+            alert('Campo CP no válido.');
+            return false; // sale de la función y NO envía el formulario
+        }
+        if(regex_password.test(formulario.password.value)==false) {
+            // console.log("No valido");
+            alert('Contraseña no válida.');
+            return false; // sale de la función y NO envía el formulario
+        }
         
         alert('Gracias por rellenar nuestro formulario correctamente.');
         return true; // sale de la función y SÍ envía el formulario
@@ -31,7 +51,7 @@
         Email: <input type="text" name="email"><br><br>
         Ciudad: <input type="text" name="ciudad"><br><br>
         Código postal: <input type="text" name="codigo_postal"><br><br>
-        Contraseña: <input type="password" name="password"><br><br>
+        Contraseña: <input type="text" name="password"><br><br>
 
 
         <input type="submit" value="Enviar" name="enviar">
