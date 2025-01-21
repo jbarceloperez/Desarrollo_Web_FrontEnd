@@ -1,20 +1,19 @@
-
 // ============================
 // Objeto window
 // ============================
 
 console.log("=== Objeto window ===");
 
-// Mostrar un mensaje de alerta
-window.alert("¡Bienvenido al curso de JavaScript!");
+// // Mostrar un mensaje de alerta
+// window.alert("¡Bienvenido al curso de JavaScript!");
 
-// Pedir confirmación al usuario
-const confirmacion = window.confirm("¿Te está gustando JavaScript?");
-console.log("Confirmación: ", confirmacion);
+// // Pedir confirmación al usuario
+// const confirmacion = window.confirm("¿Te está gustando JavaScript?");
+// console.log("Confirmación: ", confirmacion);
 
-// Pedir información al usuario
-const nombre = window.prompt("¿Cuál es tu nombre?");
-console.log("Nombre ingresado: ", nombre);
+// // Pedir información al usuario
+// const nombre = window.prompt("¿Cuál es tu nombre?");
+// console.log("Nombre ingresado: ", nombre);
 
 // Métodos adicionales del objeto window
 
@@ -34,11 +33,11 @@ console.log("Nombre ingresado: ", nombre);
 // nuevaVentana.close();
 // console.log("Ventana cerrada.");
 
-// Desplazar el scroll de la página actual
-window.scrollTo(0, 10000); // Desplaza el scroll al píxel 1000
-console.log("Scroll desplazado a 100 píxeles desde el inicio.");
+// // Desplazar el scroll de la página actual
+// window.scrollTo(0, 10000); // Desplaza el scroll al píxel 1000
+// console.log("Scroll desplazado a 100 píxeles desde el inicio.");
 
-window.scrollBy(0, 5000); // Desplaza el scroll 500 píxeles más
-console.log("Scroll desplazado 50 píxeles adicionales.");
+// window.scrollBy(0, 5000); // Desplaza el scroll 500 píxeles más
+// console.log("Scroll desplazado 50 píxeles adicionales.");
 
 
