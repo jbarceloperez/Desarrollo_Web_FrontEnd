@@ -10,7 +10,7 @@ console.log("Elemento seleccionado por ID:", titulo);
 const descripcion = document.querySelector(".descripcion");
 console.log("Elemento seleccionado por clase (querySelector):", descripcion);
 
-// Selección de múltiples elementos con querySelectorAll
+// // Selección de múltiples elementos con querySelectorAll
 const elementos = document.querySelectorAll("ul > li.elemento");
 console.log("Elementos seleccionados por clase (querySelectorAll):", elementos);
 
@@ -23,6 +23,8 @@ console.log("Elementos seleccionados por clase (querySelectorAll):", elements);
 // Cambiar el texto de un elemento
 titulo.textContent = "Nuevo Título Principal";
 console.log("Nuevo texto del título:", titulo.textContent);
+
+titulo.innerHTML = "<em>Nuevo Título Principal</em>";
 
 // Cambiar el contenido HTML de un elemento
 descripcion.innerHTML = "<strong>Descripción modificada</strong>";
@@ -60,4 +62,14 @@ entrada.addEventListener("input", () => {
     console.log("Texto actual en el input:", entrada.value);
 });
 
-document.getElementById("boton-resaltar").addEventListener
+// Recorrido del DOM
+// Acceder a los hijos de un elemento
+let lista = document.getElementById("lista");
+for(let i=0; i<lista.children.length; i++) {
+    console.log("Elemento hijo:", lista.children[i]);
+}
+
+console.log(lista.nextSibling);         // este recorre el arbol html completo
+console.log(lista.nextElementSibling);  // este recorre solo los elementos del arbol
+console.log(lista.previousElementSibling);
+
