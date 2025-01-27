@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM y Eventos</title>
+  <style>
+    .highlight {
+      background-color: yellow;
+      color: red;
+    }
+    .container {
+      border: 1px solid black;
+      padding: 10px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="titulo-principal" data-curso="JavaScript">Bienvenidos al Curso</h1>
+  <p id="descripcion">Haz clic en el botón para cambiar estilos y atributos.</p>
+  <button id="boton-estilos">Cambiar Estilos</button>
+  <button id="boton-cookies">Gestionar Cookies</button>
+  <section>
+    <p>Clicks: <span id="contador">0</span></p>
+  </section>
+  <div id="contenedor" class="container">
+    <p id="inner-element">Haz clic aquí para ver propagación de eventos.</p>
+  </div>
+  <button id="lanzar-evento">Lanzar un evento personalizado</button>
+  
+  
+  <script src="dom2.js"></script>
+  <!-- <script src="eventos.js"></script> -->
+</body>
+</html>
