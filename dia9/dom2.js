@@ -45,7 +45,7 @@ botonEstilos.addEventListener("click", () => {
 
 // Crear una cookie
 document.cookie = "usuario=Estudiante; max-age=60; path=/";
-document.cookie = "idioma=es; expires=Fri, 31 Dec 2021 23:59:59 GMT";
+document.cookie = "idioma=es; expires=Fri, 31 Dec 2025 23:59:59 GMT";
 document.cookie = "tema=claro";
 
 const botonCookies = document.getElementById("boton-cookies");
@@ -65,4 +65,26 @@ botonCookies.addEventListener("click", () => {
 
 // Ejercicio cookie count
 
+let cont = 0;
+ // Función para obtener el valor de una cookie por su nombre
+function getCookie(name) {
+  const cookies = document.cookie.split("; "); // Divide las cookies en un array
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].split("="); // Divide el nombre y el valor de cada cookie
+    if (cookie[0] === name) {
+      return cookie[1]; // Devuelve el valor de la cookie si el nombre coincide
+    }
+  }
+  return null; // Devuelve null si no encuentra la cookie
+}
+
+if (getCookie("contador") === null) {
+  document.cookie = "contador=0";
+}
+else {
+  cont = parseInt(getCookie("contador"));
+}
+cont += 1;
+document.cookie = `contador=${cont}`;
+console.log(`Esta página se ha cargado ${cont} veces.`);
 

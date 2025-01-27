@@ -10,15 +10,15 @@ clicks.addEventListener("click", (event) => {
     count++;
     document.getElementById("contador").textContent = count;
     console.log("Click número: ", count);
-    // if (count >= 4) {   
-    //     event.stopPropagation();   // al llegar a 4 clicks, detiene la propagación de eventos
-    // }
+    if (count >= 4) {   
+        event.stopPropagation();   // al llegar a 4 clicks, detiene la propagación de eventos
+    }
 
 }); // añadir true como ultimo argumento tras la función
 
 let miSection = document.getElementsByTagName("section")[0];
 let miP = document.getElementsByTagName("p")[1];
-// contador es el elemento span, en la variable clicks
+// // contador es el elemento span, en la variable clicks
 
 miSection.addEventListener("click", () => {
     console.log("Click en <section>");
@@ -27,12 +27,12 @@ miP.addEventListener("click", () => {
     console.log("Click en <p>");
 }); // añadir true como ultimo argumento tras la función
 
-// Aunque haya definido primero el evento del span, luego el del section y luego el del p,
-// el evento del span se ejecuta primero, luego el del p y luego el del section. Esto es
-// porque se ejecutan desde dentro hacia fuera, desde el elemento más interno al más externo.
+// // Aunque haya definido primero el evento del span, luego el del section y luego el del p,
+// // el evento del span se ejecuta primero, luego el del p y luego el del section. Esto es
+// // porque se ejecutan desde dentro hacia fuera, desde el elemento más interno al más externo.
 
-// Usando true como siguiente argumento invierto el orden de ejecución de los eventos.
-// Con stopPropagation se detiene la propagación de eventos.
+// // Usando true como siguiente argumento invierto el orden de ejecución de los eventos.
+// // Con stopPropagation se detiene la propagación de eventos.
 
 
 // stopPropagation también funciona de fuera hacia adentro
@@ -51,8 +51,14 @@ innerElement.addEventListener("click", (event) => {
   console.log("Detalles del evento:");
   console.log("Tipo de evento: ", event.type);
   console.log("Elemento objetivo: ", event.target);
-  console.log("Elemento actual: ", event.currentTarget);
 });
+
+// Event: Detalles del evento
+innerElement.addEventListener("mouseover", (event) => {
+    console.log("Detalles del evento:");
+    console.log("Tipo de evento: ", event.type);
+    console.log("Elemento objetivo: ", event.target);
+  });
 
 // removeEventListener: Quitar un evento
 const logEvento = () => console.log("Evento registrado.");
@@ -72,12 +78,24 @@ const botonLanzarEvento = document.getElementById("lanzar-evento");
 // Crear un evento personalizado
 const eventoPersonalizado = new Event("miEvento");
 
-botonLanzarEvento.addEventListener("miEvento", () => {
+botonLanzarEvento.addEventListener("miEvento", (event) => {
   console.log("¡Evento personalizado lanzado!");
+  console.log("Detalles del evento:");
+    console.log("Tipo de evento: ", event.type);
+    console.log("Elemento objetivo: ", event.target);
 });
 
-botonLanzarEvento.addEventListener("click", () => {
+botonLanzarEvento.addEventListener("click", (event) => {
   // Lanzar el evento personalizado
   botonLanzarEvento.dispatchEvent(eventoPersonalizado);
+  console.log("Detalles del evento:");
+    console.log("Tipo de evento: ", event.type);
+    console.log("Elemento objetivo: ", event.target);
 });
+
+
+setTimeout(() => {
+    // Lanzar el evento personalizado
+    botonLanzarEvento.dispatchEvent(eventoPersonalizado);
+}, 3000); // lanzar el evento después de 3 segundos
 
