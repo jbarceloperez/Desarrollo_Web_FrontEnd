@@ -1,3 +1,5 @@
+import * as er from "./errores.js";
+import { areaCirculo, areaRectangulo, pi } from "./libreriaMat.js";
 
 // 1. CREACIÓN Y LANZAMIENTO DE ERRORES
 
@@ -6,15 +8,18 @@ let customError = new Error("Este es un error personalizado.");
 console.log("Nombre del error:", customError.name);  // Propiedad "name"
 console.log("Mensaje del error:", customError.message);  // Propiedad "message"
 
+
 // Ejemplo de lanzamiento explícito de un error
 function dividir(a, b) {
     if (b === 0) {
-        throw new Error("No se puede dividir por cero.");
+        throw new er.DividirPor0Exception("No se puede dividir por cero.");
     }
     return a / b;
 }
+// dividir(10,0);
 
-// 2. MANEJO DE EXCEPCIONES CON try/catch
+
+// // 2. MANEJO DE EXCEPCIONES CON try/catch
 
 try {
     let resultado = dividir(10, 0); // Provocará un error
@@ -48,7 +53,8 @@ procesarTexto("Hola, mundo!"); // Funciona correctamente
 function leerArchivo() {
     try {
         console.log("Intentando leer archivo...");
-        throw new Error("Archivo no encontrado.");
+        // throw new Error("Archivo no encontrado.");
+        console.log("se ha leido el archivo");
     } catch (error) {
         console.error("Error durante la lectura:", error.message);
     } finally {
@@ -59,7 +65,7 @@ function leerArchivo() {
 leerArchivo();
 
 
-// MODO ESTRICTO ("strict mode")
+// // MODO ESTRICTO ("strict mode")
 
 
 /*
@@ -125,7 +131,7 @@ try {
 function manejarErrores() {
     try {
         // Lanza un error personalizado
-        throw new Error("mensaje personalizado");
+        throw new RangeError("mensaje personalizado");
     } catch (error) {
         if (error instanceof RangeError) {
             console.error("Manejando RangeError:", error.message);
@@ -144,22 +150,22 @@ manejarErrores();
 // 5. Creación personalizada de excepciones y módulos
 // -----------------------------
 
-class MiExcepcion extends Error {
-    constructor(mensaje) {
-        super(mensaje);
-        this.name = "MiExcepcion";  
-    }
-}
 
 try {
-    throw new MiExcepcion("Este es un error personalizado.");
+    throw new er.MiExcepcion("Este es un error personalizado.");
 } catch (error) {
     console.error(`Capturado: ${error.name} - ${error.message}`);
 }
 
 
 
+//////////////////
+console.log("MATEMATICAS");
 
+let radio1 = 1;
+let radio2 = 15;
+console.log(areaCirculo(radio1));
+console.log(areaCirculo(radio2));
+console.log(areaRectangulo(10,5));
 
-
-
+let miPi = pi;
