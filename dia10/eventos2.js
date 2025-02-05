@@ -13,7 +13,8 @@ formulario.addEventListener("submit", function () {
 });
 
 // Escuchar el evento reset para limpiar el formulario
-formulario.addEventListener("reset", function () {
+formulario.addEventListener("reset", function (event) {
+  // event.preventDefault(); // Evita que el formulario se reinicie
   console.log("Formulario reiniciado.");
 });
 
@@ -35,14 +36,19 @@ console.log("Elementos del formulario:", formulario.elements);
 
 const botonClick = document.getElementById("boton-click");
 
+// eventos con clicks
 botonClick.addEventListener("click", () => console.log("Click simple detectado"));
 botonClick.addEventListener("dblclick", () => console.log("Doble click detectado"));
 botonClick.addEventListener("mousedown", () => console.log("Botón presionado"));
-botonClick.addEventListener("mouseup", () => console.log("Botón liberado"));
 botonClick.addEventListener("contextmenu", (e) => {
   e.preventDefault();   // elimina la acción del evento por defecto
   console.log("Menú contextual bloqueado.");
 });
+
+// eventos con la posición del cursor
+// botonClick.addEventListener("mouseup", () => console.log("Botón liberado"));
+
+
 // Diferencias entre mouseover y mouseenter
 botonClick.addEventListener("mouseover", () => console.log("mouseover: entra, incluye elementos hijos"));
 botonClick.addEventListener("mouseout", () => console.log("mouseout: sale, incluye elementos hijos"));
@@ -55,10 +61,23 @@ areaRaton.addEventListener('mousemove', (e) => {
 
 areaRaton.addEventListener("mouseenter", () => console.log("Cursor entra en el area"));
 areaRaton.addEventListener("mouseleave", () => console.log("Cursor sale del area"));
-areaRaton.addEventListener("mousemove", () => console.log("Movimiento dentro del area"));
 
-// Elementos coloreados
-// TODO hacer en clase
+// // Elementos coloreados
+// // TODO hacer en clase
+
+let elementos = document.getElementById('coloreados');
+for (let i=0; i < elementos.children.length; i++) {
+  elementos.children[i].addEventListener("mouseover", (e) => {
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+    elementos.children[i].style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+  });
+
+  elementos.children[i].addEventListener("mouseout", (e) => {
+    elementos.children[i].style.backgroundColor = "white";
+  });
+}
 
 
 // ===========================
@@ -102,11 +121,11 @@ areaDrop.addEventListener('drop', () => {
 // ===========================
 // Eventos de reproducción multimedia
 // ===========================
-const video = document.getElementById("audio-ejemplo");
+const audio = document.getElementById("audio-ejemplo");
 
-video.addEventListener("play", () => console.log("Reproducción iniciada."));
-video.addEventListener("pause", () => console.log("Reproducción pausada."));
-video.addEventListener("ended", () => console.log("Reproducción finalizada."));
+audio.addEventListener("play", () => console.log("Reproducción iniciada."));
+audio.addEventListener("pause", () => console.log("Reproducción pausada."));
+audio.addEventListener("ended", () => console.log("Reproducción finalizada."));
 
 // ===========================
 // Eventos extra
@@ -132,7 +151,10 @@ const botonScroll = document.getElementById('boton-scroll');
       window.scrollTo({ top: 3000, behavior: 'smooth' });
 });
 
-
+let botondoc = document.getElementById("boton-doc");
+botondoc.addEventListener("click", () => {
+  location.assign("https://www.w3schools.com/jsref/dom_obj_event.asp");
+});
 
 // Ej1
 /* 
@@ -140,6 +162,7 @@ Crea una rutina que no permita que el ratón se coloque encima de una caja
 azul de 100x100 px. Cada vez que el ratón intente colocarse 
 encima, la posición de la caja debe cambiar aleatoriamente por la página.
 */
+
 // Ej2
 /*
 Crea una aplicación que contenga un párrafo con mucho texto. 
