@@ -26,7 +26,7 @@ console.log("===== Ejemplo 1: localStorage =====");
 localStorage.setItem('nombre', 'Juan');
 localStorage.setItem('edad', '25');
 
-// Leer datos
+// // Leer datos
 const nombre = localStorage.getItem('nombre');
 const edad = localStorage.getItem('edad');
 
@@ -63,10 +63,11 @@ console.log(`Número de elementos tras clear(): ${localStorage.length}`); // 0
 // =============================================
 console.log("===== Ejemplo 3: sessionStorage =====");
 
-// sessionStorage.setItem('usuario', 'María');
+sessionStorage.setItem('usuario', 'María');
 console.log(`Usuario en sesión: ${sessionStorage.getItem('usuario')}`); // María
 
-// Si cerramos la pestaña, la información desaparece.
+
+// // Si cerramos la pestaña, la información desaparece.
 
 // =============================================
 // API Geolocation
@@ -146,6 +147,31 @@ if (navigator.geolocation) {    // devuelve null si no es compatible
   }, 10000);
   
 
+let coordenadas = {};
+navigator.geolocation.getCurrentPosition((position) => {
+    coordenadas = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    };
+});
+
+  function initMap() {
+    const coordenadas = { lat: 37.6044, lng: -0.9926 }; // Coordenadas de Madrid
+    const mapa = new google.maps.Map(document.getElementById("map"), {
+        zoom: 12,
+        center: coordenadas,
+    });
+
+    // Agregar un marcador
+    new google.maps.Marker({
+        position: coordenadas,
+        map: mapa,
+        title: "Aquí estás",
+    });
+}
+
+window.onload = initMap;
+
 
 // =============================================
 // API Notification
@@ -159,17 +185,17 @@ if (!('Notification' in window)) {
   }
   
   // Solicitud de permisos para mostrar notificaciones
-  function solicitarPermiso() {
+  function solicitarPermiso(callback, titulo, cuerpo) {
     Notification.requestPermission().then((permiso) => {
-      if (permiso === "granted") {
-        console.log("Permiso concedido para mostrar notificaciones.");
-        mostrarNotificacion("Permiso concedido", "Ahora podemos enviarte notificaciones.");
-      } else {
-        console.warn("Permiso denegado o cerrado.");
-      }
-    });
+    if (permiso === "granted") {
+      console.log("Permiso concedido para mostrar notificaciones.");
+      callback(titulo, cuerpo);
+    } else {
+      console.warn("Permiso denegado o cerrado.");
+    }
+  });
   }
-  
+
   // Función para mostrar una notificación básica
   function mostrarNotificacion(titulo, cuerpo) {
     if (Notification.permission === "granted") {
@@ -202,31 +228,10 @@ if (!('Notification' in window)) {
     }, 3000);
   }
   
-  // Ejemplo: solicitar permiso y mostrar notificaciones secuenciales
-  solicitarPermiso();
-  mostrarNotificacionesVariadas();
+//   // Ejemplo: solicitar permiso y mostrar notificaciones secuenciales
+  solicitarPermiso(mostrarNotificacion, "Hola", "Cuerpo de la notificación");
+//   mostrarNotificacion("Bienvenido", "Gracias por visitar nuestro sitio web.");
   
-
-
-//   // APIs externas: Google Maps
-
-//   let latlng = new google.maps.LatLng(
-//     position.coords.latitude,
-//     position.coords.longitude,
-//   );
-
-//   let myOptions = {
-//     zoom: 8,
-//     center: latlng,
-//     mapTypeId: google.maps.MapTypeId.TERRAIN,
-//     disableDefaultUI: true,
-//   };
-  
-//   let map = new google.maps.Map(document.querySelector("#map_canvas"), myOptions);
-
-
-
-
   
   
 
