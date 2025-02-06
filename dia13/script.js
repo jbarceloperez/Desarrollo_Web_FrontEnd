@@ -99,6 +99,7 @@ realizarTarea(1000, () => {
         });
     });
 });
+console.log("Fin de las tareas anidadas");
 
 /*
 Este código es difícil de leer y propenso a errores.
@@ -109,28 +110,68 @@ Pero primero es importante entender por qué los callbacks pueden ser problemát
 // Nuevo concepto: PROMESAS
 
 /*
-Una **Promesa (Promise)** en JavaScript representa una operación que aún no se ha completado,
+Una Promesa (Promise) en JavaScript representa una operación que aún no se ha completado,
 pero se espera que lo haga en el futuro. Una promesa tiene tres posibles estados:
 - `pending` (pendiente)
 - `fulfilled` (cumplida)
 - `rejected` (rechazada)
 */
 
-console.log(new Promise(() => {})); // Promise pendiente
+let myPromise = new Promise((resolve, reject) => {});
+console.log(myPromise); // Promise pendiente
 
-// ===============================
-// CREACIÓN BÁSICA DE UNA PROMESA
-// ===============================
+// La promesa tiene un estado pendiente y un valor indefinido.
+
+myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("¡Saludos desde la promesa!");
+    }, 2000);
+});
+
+console.log(myPromise);
+
+// Ahora la promesa tiene un estado fullfilled y un valor definido.
+// Las promesas pueden estar pending, fullfilled o rejected
 
 /*
-Creamos una Promesa que imita el comportamiento del callback hell del ejemplo anterior.
 Una promesa recibe una función con dos argumentos: `resolve` y `reject`.
 - `resolve` se llama cuando la operación es exitosa.
 - `reject` se llama cuando hay un error.
+ 
+Adjuntar callbacks a una promesa: Una vez que tienes una referencia, 
+puedes adjuntar funciones de callback utilizando los métodos .then y 
+.catch. El método .then se llama cuando una promesa se cumple y el 
+método .catch se llama cuando una promesa se rechaza. También se puede
+añadir el método finally() para ejecutar código después de que la 
+promesa se resuelva o se rechace.
 */
+
+myPromise
+  .then((resultado) => {
+    console.log(resultado);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(() => {
+    //aquí va el código que será ejecutado independientemente de que la promesa se cumpla o se rechace. 
+  });
+
+/*
+En este ejemplo, cada tarea se encadena usando `then()`, lo que permite
+una estructura de código mucho más legible y mantenible.
+Si ocurre algún error, `catch()` lo captura.
+*/
+
+// Ahora vamos a ver el ejemplo anterior de callback hell pero con promesas
+
+console.log("Inicio de tareas con promesas");
 
 function tareaAsincrona(tiempo) {
     return new Promise((resolve) => {
+        if (tiempo < 1000) {
+            throw new Error("Error: El tiempo debe ser mayor o igual a 1000 ms");
+        }
         setTimeout(() => {
             console.log(`Tarea completada en ${tiempo} ms`);
             resolve(); // Llamamos a `resolve` cuando la tarea termina
@@ -138,21 +179,94 @@ function tareaAsincrona(tiempo) {
     });
 }
 
-// ===============================
-// USO DE PROMESAS PARA EVITAR CALLBACK HELL
-// ===============================
-
-console.log("Inicio de tareas con promesas");
-
 tareaAsincrona(1000)
-    .then(() => tareaAsincrona(1000))
-    .then(() => tareaAsincrona(1000))
-    .then(() => tareaAsincrona(1000))
+    .then(() => tareaAsincrona(1001))
+    .then(() => tareaAsincrona(1002))
+    .then(() => tareaAsincrona(993))
     .then(() => console.log("Todas las tareas completadas"))
     .catch((error) => console.error("Error:", error));
 
+
+// Al trabajar con varias promesas a la vez, puedo querer esperar a que 
+// todas se resuelvan antes de continuar con el código. Para eso, se usa
+// el método Promise.all().
+
+let promesa1 = fetch('https://jsonplaceholder.typicode.com/posts/1');
+let promesa2 = fetch('https://jsonplaceholder.typicode.com/posts/2');
+let promesa3 = fetch('https://jsonplaceholder.typicode.com/posts/3');
+
+Promise.all([promesa1, promesa2, promesa3])
+.then(respuestas => {
+    console.log('Todas las promesas se han cumplido:', respuestas);
+});
+
+// async Y await
 /*
-En este ejemplo, cada tarea se encadena usando `then()`, lo que permite
-una estructura de código mucho más legible y mantenible.
-Si ocurre algún error, `catch()` lo captura.
+Las funciones `async` permiten escribir código asíncrono que parece síncrono,
+haciendo que trabajar con Promesas sea más simple y limpio.
+- Una función marcada como `async` devuelve siempre una Promesa.
+- El operador `await` se usa dentro de funciones `async` para "esperar"
+  a que una Promesa se resuelva.
+
+Esto elimina la necesidad de anidar múltiples `then()` y mejora la legibilidad.
 */
+
+// Ejemplo básico: una función que retorna una Promesa
+function tareaAsincronaSimple(tiempo) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(`Tarea completada en ${tiempo} ms`);
+        }, tiempo);
+    });
+}
+
+// Definición de una función `async`
+async function ejecutarTareas() {
+    console.log("Inicio de la función `async`");
+
+    // Espera a que la primera promesa se resuelva
+    const resultado1 = await tareaAsincronaSimple(1000);
+    console.log(resultado1);
+
+    // Espera a que la segunda promesa se resuelva
+    const resultado2 = await tareaAsincronaSimple(2000);
+    console.log(resultado2);
+
+    console.log("Todas las tareas completadas.");
+}
+
+ejecutarTareas();
+
+/*
+El uso de `await` permite ejecutar el código de manera secuencial,
+sin necesidad de encadenar múltiples `then()`.
+*/
+
+// ===============================
+// MANEJO DE ERRORES CON `try/catch`
+// ===============================
+
+/*
+Las funciones `async` pueden usar `try/catch` para manejar errores,
+similar al manejo de excepciones en código síncrono. Si una Promesa es 
+rechazada, await lanza una excepciónque puede ser capturada con try/catch.
+*/
+
+async function ejecutarConErrores() {
+    try {
+        console.log("Iniciando tarea con posible error");
+
+        // Simulación de una tarea que falla
+        const resultado = await new Promise((_, reject) =>
+            setTimeout(() => reject("Error en la tarea"), 1500)
+        );
+
+        console.log(resultado); // No se ejecutará si hay un error
+
+    } catch (error) {
+        console.error("Capturado en `catch`: ", error);
+    }
+}
+
+ejecutarConErrores();
+
