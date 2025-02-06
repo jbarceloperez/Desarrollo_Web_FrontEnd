@@ -1,3 +1,7 @@
+document.getElementById("btn").addEventListener("click", () => {
+    location.assign("https://www.freecodecamp.org/espanol/news/programacion-asincrona-en-javascript-guia-para-princi");
+});
+
 
 /*
 En JavaScript, el código generalmente se ejecuta de forma secuencial y bloqueante.
