@@ -1,5 +1,5 @@
 document.getElementById("btn").addEventListener("click", () => {
-    location.assign("https://www.freecodecamp.org/espanol/news/programacion-asincrona-en-javascript-guia-para-princi");
+    location.assign("https://www.freecodecamp.org/espanol/news/programacion-asincrona-en-javascript-guia-para-principiantes/");
 });
 
 
@@ -75,6 +75,8 @@ realizarTarea(1000, () => {
         console.log("Segunda tarea completada");
     });
 });
+
+console.log("Fin de las tareas de blablalba");
 
 /*
 Este patrón permite manejar tareas asíncronas de manera secuencial.
@@ -190,6 +192,7 @@ tareaAsincrona(1000)
     .then(() => console.log("Todas las tareas completadas"))
     .catch((error) => console.error("Error:", error));
 
+// console.log("Tareas promesas");
 
 // Al trabajar con varias promesas a la vez, puedo querer esperar a que 
 // todas se resuelvan antes de continuar con el código. Para eso, se usa
@@ -202,6 +205,9 @@ let promesa3 = fetch('https://jsonplaceholder.typicode.com/posts/3');
 Promise.all([promesa1, promesa2, promesa3])
 .then(respuestas => {
     console.log('Todas las promesas se han cumplido:', respuestas);
+})
+.catch(error => {
+    console.error('Error en alguna de las promesas:', error);
 });
 
 // async Y await
@@ -240,6 +246,7 @@ async function ejecutarTareas() {
 }
 
 ejecutarTareas();
+console.log("Post-Funcion async")
 
 /*
 El uso de `await` permite ejecutar el código de manera secuencial,
