@@ -90,10 +90,10 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
 
 //-----------------------------------------------------
 
-// **Envío de datos de un formulario:**
-const formData = new FormData();
-formData.append('nombre', 'Juan');
-formData.append('edad', 30);
+// // **Envío de datos de un formulario:**
+// const formData = new FormData();
+// formData.append('nombre', 'Juan');
+// formData.append('edad', 30);
 
 
 
