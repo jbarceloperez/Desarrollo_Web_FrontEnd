@@ -4,5 +4,6 @@ dia10/ej*
 .vscode
 proyecto
 pruebas
-react
+node_modules
+build
 server_DAW
